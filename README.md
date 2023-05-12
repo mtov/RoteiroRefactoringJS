@@ -43,7 +43,7 @@ para gerar faturas. Explicando um poudo mais, essa companhia faz apresentações
 de algumas peças para certos clientes. E ela quer no final do mês gerar uma 
 fatura para tais clientes, explicitando o valor que ela deve receber.
 
-Primeiro, estude então a versão inicial da função `calcularFatura`, 
+Primeiro, estude então a versão inicial da função `gerarFaturaStr`, 
 disponível neste [link](https://replit.com/@engsoftmoderna/RoteiroRefactoringJS#).
 
 **Importante:**
@@ -74,12 +74,12 @@ Em seguida, dê um **Commit & Push**, com a descrição: "Commit 1 - Versão ini
 
 ## 2. Extração de Função
 
-Extrair uma função com código do `switch` interno a `calcularFatura`. A nova função deve 
+Extrair uma função com código do `switch` interno a `gerarFaturaStr`. A nova função deve 
 se chamar `calcularTotalApresentacao` e, portanto, vai calcular o valor que deve ser pago 
 para uma determinada extração. Após a extração, o código ficará assim:
 
 ```js
-function calcularFatura (fatura, pecas) {
+function gerarFaturaStr (fatura, pecas) {
 
     function calcularTotalApresentacao(apre, peca) {
       let total = 0;
@@ -106,13 +106,13 @@ Esse refactoring substitui uma variável local (`temp`) por uma função que
 apenas retorna seu valor, isto é, uma *query*.
 
 Vamos então substituitir a variável local `peca` usada no corpo principal 
-de `calcularFatura` por uma função que retorna o seu valor.
+de `gerarFaturaStr` por uma função que retorna o seu valor.
 
 Primeiro, vamos criar a função *query*  (`getPeca`) e chamá-la no corpo 
-principal de `calcularFatura`
+principal de `gerarFaturaStr`
 
 ```js
-function calcularFatura (fatura, pecas) {
+function gerarFaturaStr (fatura, pecas) {
 
     function getPeca(apresentacao) {
       return pecas[apresentacao.id];
@@ -156,7 +156,7 @@ Extraia agora mais uma função, que ficará responsável por calcular quantos c
 ganhará com uma apresentação. Veja como ficará o código:
 
 ```js
-function calcularFatura (fatura, pecas) {
+function gerarFaturaStr (fatura, pecas) {
 
     function calcularCredito(apre) {
       let creditos = 0;
@@ -173,22 +173,22 @@ E de também chamar a nova função (`calcularCredito`).
 
 Feito isso, rode o código para garantir que está tudo funcionando.
 
-#### Extraindo a função `formatar`
+#### Extraindo a função `formatarMoeda`
 
 Para simplificar, vamos também extrair a inicialização da variável local `format`para uma
 função e remover essa variável:
 
 ```js
-function calcularFatura (fatura, pecas) {
+function gerarFaturaStr (fatura, pecas) {
 
-    function formatar(valor) {
+    function formatarMoeda(valor) {
       return new Intl.NumberFormat("pt-BR",
         { style: "currency", currency: "BRL",
           minimumFractionDigits: 2 }).format(valor/100);
     }
 ```
 
-Feito isso, remova o código extraído do corpo da função principal e chame a nova função (`formatar`). 
+Feito isso, remova o código extraído do corpo da função principal e chame a nova função (`formatarMoeda`). 
 
 Para garantir que está tudo funcionando, rode o código.
 
@@ -199,14 +199,19 @@ Em seguida, dê um **Commit & Push**, com a descrição: "Commit 4 - Mais Extrac
 Agora, vamos fazer uma simplificação grande no corpo da função principal, que deverá ficar assim:
 
 ```js
-let faturaStr = `Fatura ${fatura.cliente}\n`;
-for (let apre of fatura.apresentacoes) {
-    faturaStr += `  ${getPeca(apre).nome}: ${formatar(calcularTotalApresentacao(apre))} (${apre.audiencia} assentos)\n`;
-}
-faturaStr += `Valor total: ${formatar(calcularTotalFatura())}\n`;
-faturaStr += `Créditos acumulados: ${calcularTotalCreditos()} \n`;
-return faturaStr;
-```js
+function gerarFaturaStr (fatura, pecas) {
+
+  // funções aninhadas
+  
+  let faturaStr = `Fatura ${fatura.cliente}\n`;
+  for (let apre of fatura.apresentacoes) {
+      faturaStr += `  ${getPeca(apre).nome}: ${formatarMoeda(calcularTotalApresentacao(apre))} (${apre.audiencia} assentos)\n`;
+  }
+  faturaStr += `Valor total: ${formatarMoeda(calcularTotalFatura())}\n`;
+  faturaStr += `Créditos acumulados: ${calcularTotalCreditos()} \n`;
+  return faturaStr;
+}  
+```
 
 Veja agora que esse código fica responsável apenas por retornar uma string com a fatura 
 formatada. Para isso, você deverá extrair mais uma função, chamada `calcularTotalFatura()`,
