@@ -3,20 +3,19 @@
 **Prof. Marco Tulio Valente**
 
 Objetivo: colocar em prática os conceitos de refactoring aprendidos na sala de aula. 
-Para isso, o aluno vai realizar alguns refactorings em um sistema hipotético, 
-também usado nos capítulos iniciais da segunda edição do livro do Fowler, 
-que é o livro clássico sobre o tema.
+Para isso, você vai realizar alguns refactorings em um sistema hipotético, 
+também usado no primeiro capítulo da segunda edição do 
+[livro](https://martinfowler.com/books/refactoring.html)
+do Fowler, que é o livro clássico sobre o tema.
 
-Para tirar proveito do exercício:
+Para tirar proveito do roteiro é **importante não apenas seguir os passos mecanicamente, 
+mas também analisar os benefícios alcançados com cada refactoring**. Ou seja, pense 
+sempre nos motivos que tornam o código refatorado melhor do que o código anterior.
 
-* **É importante não apenas seguir o roteiro mecanicamente, mas também analisar os 
-  benefícios alcançados com cada refactoring**. 
-* Ou seja, pense sempre nos motivos que tornam o código refatorado melhor do que o código anterior.
-
-Em caso de dúvida sobre os refactorings propostos, você pode consultar o [Capítulo 9](https://engsoftmoderna.info/cap9.html) do nosso livro.
+Em caso de dúvida, você pode consultar o [Capítulo 9](https://engsoftmoderna.info/cap9.html) do nosso livro.
 
 O exemplo está em JavaScript, mas a sintaxe é familiar mesmo para aqueles que nunca programaram 
-na linguagem. Infelizmente, não é possível fazer em uma outra linguagem, pois a correção será 
+nessa linguagem. Infelizmente, não é possível fazer em uma outra linguagem, pois a correção será 
 automática. 
 
 Você vai precisar de ter instalado também o `node.js` (para mais informações clique 
@@ -63,9 +62,9 @@ Ela vai produzir o seguinte resultado:
 
 ```console
 Fatura UFMG
- Hamlet: R$ 650,00 (55 assentos)
- As You Like It: R$ 580,00 (35 assentos)
- Othello: R$ 500,00 (40 assentos)
+  Hamlet: R$ 650,00 (55 assentos)
+  As You Like It: R$ 580,00 (35 assentos)
+  Othello: R$ 500,00 (40 assentos)
 Valor total: R$ 1.730,00
 Créditos acumulados: 47 
  ```
