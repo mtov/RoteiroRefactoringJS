@@ -48,19 +48,20 @@ disponível neste [link](https://replit.com/@engsoftmoderna/RoteiroRefactoringJS
 **Importante:**
 
 * No código, usamos o termo `peca` (sem cedilha) para denotar uma peça apresentada
-  pela companhia. Por isso, vai ver funções chamadas, por exemplo, `getPeca`. 
+  pela companhia. Por isso, existem funções chamadas, por exemplo, `getPeca`. 
 
 * Os dados das apresentações feitas pela companhia de teatro estão
 em um [arquivo json](). Em um segundo [arquivo](), estão informações sobre 
 as peças do repertório da companhia de teatro.
 
-Execute também a função, usando o comando `npm`: 
+Você deve também executar a função do nosso exemplo usando o 
+comando `npm`: 
 
 `node index.js`
 
-Ela vai produzir o seguinte resultado:
+O resultado deve ser o seguinte:
 
-```console
+```
 Fatura UFMG
   Hamlet: R$ 650,00 (55 assentos)
   As You Like It: R$ 580,00 (35 assentos)
