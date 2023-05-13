@@ -1,0 +1,17 @@
+{
+  "cliente": "UFMG",
+  "apresentacoes": [
+    {
+      "id": "hamlet",
+      "audiencia": 55
+    },
+    {
+      "id": "as-like",
+      "audiencia": 35
+    },
+    {
+      "id": "othello",
+      "audiencia": 40
+    }
+  ]
+}
