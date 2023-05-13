@@ -243,13 +243,13 @@ Em seguida, dê um **Commit & Push**, com a descrição: "Commit 5 - Separando A
 
 ## 6. Move Function
 
-Agora você deve mover todas as funções aninhadas em `gerarFaturaStr` para "fora" dessa função
-(normalmente, um Move Function move funções de um arquivo para outro; mas estamos considerando
-que ele aplica-se também a movimentações de funções aninhadas para um escopo mais externo).
+Agora você deve mover todas as funções aninhadas em `gerarFaturaStr` para "fora" dessa função.
+Normalmente, um Move Function move funções de um arquivo para outro; mas estamos considerando
+que ele aplica-se também a movimentações de funções aninhadas para um escopo mais externo.
 
-Tentando ser bem claro, após essa refatoração, o código vai ficar como mostrado a seguir.
-Observe que algumas funções ganharam um parâmetro extra (`peca`). Logo, a chamada delas também
-deve ser ajustada, para incluir esse novo parâmetro.
+Após essa refatoração, o código vai ficar como mostrado a seguir. Observe que algumas funções 
+ganharam um parâmetro extra (`pecas`). Logo, a chamada delas deve ser ajustada para incluir 
+esse novo parâmetro.
 
 ```js
 function formatarMoeda(valor) {
@@ -288,7 +288,7 @@ Em seguida, dê um **Commit & Push**, com a descrição: "Commit 6 - Move Functi
 ## 7. Fatura em HTML
 
 O refactoring anterior vai facilitar bastante a criação de um segundo tipo
-de fatura, agora em HTML. Essa fatura deverá ser assim:
+de fatura, agora em HTML, tal como mostrado a seguir:
 
 ```html
 <html>
@@ -308,12 +308,138 @@ Especificamente, você deverá:
 * Criar uma nova função `gerarFaturaHTML` que gera uma fatura como essa acima.
 * Acrescentar uma chamada para essa função no programa principal.
 
-É importante ver como foi fácil criar essa segunda forma de apresentação
-de uma fatura. Todas as funções de "cálculo" foram integralmente reusadas.
-Sendo mais claro, focamos a mudança na lógica de apresentação e não na
-lógica de negócio.
+Ou seja, teremos agora duas funções para geração de faturas:
+
+```js
+function gerarFaturaStr(fatura, pecas) {
+  ...
+}
+
+function gerarFaturaHTML(fatura, pecas) {
+  ...
+}
+```
+
+É importante refletir sobre como foi fácil criar essa segunda forma de 
+apresentação de uma fatura. Todas as funções de cálculo foram integralmente 
+reusadas. Sendo mais claro, a mudança ficou restrita à lógica de apresentação e 
+não precisamos modificar nenhuma lógica de negócio.
 
 Para garantir que está tudo funcionando, rode o código. Veja que agora o 
-programa irá exibir duas faturas: uma em string e outra em HTML.
+programa deverá exibir duas faturas: uma em string e outra em HTML.
 
 Em seguida, dê um **Commit & Push**, com a descrição: "Commit 7 - Fatura em HTML".
+
+## 7. Criando uma classe `ServicoCalculoFatura`
+
+Agora, vamos fazer uma mudança muito importante no programa: vamos criar uma
+classe, chamada `ServicoCalculoFatura` para modularizar a implementação das
+funções de cálculo. Ou seja, essa classe vai ter o seguinte formato:
+
+```js
+class ServicoCalculoFatura {
+   calcularCredito(pecas, apre) {
+     ...
+   }
+   calcularTotalCreditos(pecas, apresentacoes) {
+      ...
+   }
+   calcularTotalApresentacao(pecas, apre) {
+      ...
+   }
+   calcularTotalFatura(pecas, apresentacoes) {
+      ... 
+   }
+}
+```
+
+Ou seja, criamos a classe e movemos para ela todos os métodos de cálculo.
+
+Importante:
+
+1. Os métodos de uma classe não são precedidos da palavra reservada `function`, tal como 
+pode ser visto no código acima.
+
+2. Quando um método da classe chama um outro método, essa chamada deve ser feita 
+tendo como alvo o objeto `this`. Exemplo:
+
+```js
+calcularTotalFatura(pecas, apresentacoes) {
+   let total = 0;
+   for (let apre of apresentacoes) {
+     total += this.calcularTotalApresentacao(pecas, apre); 
+   }  
+   return total;         
+}
+```
+
+3. No programa principal, você deve agora criar um objeto da nova classe
+e passá-lo como parâmetro de `gerarFaturaStr`
+
+```js
+calc = new ServicoCalculoFatura();
+const faturaStr = gerarFaturaStr(faturas, pecas, calc);
+```
+
+4. Por fim, no corpo `gerarFaturaStr` as chamadas dos métodos de cálculo deverão
+ser feitas usando o novo parâmetro `calc`, tal como nesse exemplo:
+
+```js
+calc.calcularTotalApresentacao(pecas, apre)
+```
+
+Para garantir que está tudo funcionando, rode o código. 
+
+Em seguida, dê um **Commit & Push**, com a descrição: "Commit 8 - Classe ServicoCalculoFatura".
+
+## 9. Criando um `Repositório`
+
+Agora vamos criar nossa segunda classe, chamada `Repositorio` que vai encapsular o
+arquivo JSON com os dados das peças do repertório da companhia de teatro. Segue o
+seu código:
+
+```js
+class Repositorio {
+  constructor() {
+    this.pecas = JSON.parse(readFileSync('./pecas.json'));
+  }
+
+  getPeca(apre) {
+    return this.pecas[apre.id];
+  }
+}
+```
+
+E também crie o seguinte construtor na classe `ServicoCalculoFatura`:
+
+```js
+class ServicoCalculoFatura {
+
+  constructor(repo) {
+     this.repo = new Repositorio();
+  }
+  ...
+```  
+
+Em seguida, faça os ajustes necessários:
+
+1. Todos os métodos `calcular` de  `ServicoCalculoFatura` não vai mais precisar do parâmetro `pecas`, que poderá ser removido.
+
+2. Agora, para chamar `getPecas` esses métodos vão ter que fazer a chamada como nesse exemplo:
+
+```js
+if (this.repo.getPeca(apre).tipo === "comedia") 
+```  
+
+3. A função `gerarFaturaStr` também não vai mais precisar do parâmetro `pecas`, que poderá ser removido.
+
+4. Em `gerarFaturaStr`, a chamada a `getPeças` deverá ser feita assim:
+
+```js
+calc.repo.getPeca(apre).nome
+
+5. No programa principal, não vamos mais precisar de ler o arquivo de peças.
+
+Para garantir que está tudo funcionando, rode o código. 
+
+Em seguida, dê um **Commit & Push**, com a descrição: "Commit 9 - Classe Repositorio".
