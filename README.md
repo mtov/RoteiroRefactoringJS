@@ -224,9 +224,9 @@ function gerarFaturaStr(fatura, pecas) {
   return faturaStr;
 }  
 ```
-Veja que esse código é responsável apenas por retornar uma string com a fatura 
-formatada. Para isso, você deverá extrair mais uma função, chamada `calcularTotalFatura()`,
-que já está sendo chamada no código acima.
+Esse código apenas retorna uma string com a fatura formatada. Para que ele funcione corretamente, 
+você deverá extrair mais uma função, chamada `calcularTotalFatura()`, que já está sendo chamada 
+no código acima.
 
 Explicando melhor: agora, temos um método focado em apresentação (ou interface com o usuário), 
 cujo corpo principla possui poucas linhas de código e que é muito menor do que a versão 
