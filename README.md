@@ -188,7 +188,7 @@ Para simplificar, vamos também extrair a inicialização da variável local
 `format`para uma função e remover essa variável:
 
 ```js
-function gerarFaturaStr (fatura, pecas) {
+function gerarFaturaStr(fatura, pecas) {
 
     function formatarMoeda(valor) {
       return new Intl.NumberFormat("pt-BR",
@@ -204,13 +204,13 @@ Para garantir que está tudo funcionando, rode o código.
 
 Em seguida, dê um **Commit & Push**, com a descrição: "Commit 4 - Mais Extract Functions".
 
-#### 5. Separando Apresentação dos Cálculos
+## 5. Separando Apresentação dos Cálculos
 
 Estamos agora em um ponto importante do roteiro, no qual vamos fazer uma simplificação grande 
 no corpo da função principal, que deverá ficar assim:
 
 ```js
-function gerarFaturaStr (fatura, pecas) {
+function gerarFaturaStr(fatura, pecas) {
 
   // funções aninhadas
 
