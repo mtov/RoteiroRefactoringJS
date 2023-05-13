@@ -75,18 +75,20 @@ Em seguida, dê um **Commit & Push**, com a descrição: "Commit 1 - Versão ini
 
 ## 2. Extração de Função
 
-Extrair uma função com código do `switch` interno a `gerarFaturaStr`. A nova função deve 
-se chamar `calcularTotalApresentacao` e, portanto, vai calcular o valor que deve ser pago 
-para uma determinada extração. Após a extração, o código ficará assim:
+Agora, você deve extrair uma função com código do `switch` interno a `gerarFaturaStr`. 
+A nova função deve se chamar `calcularTotalApresentacao` e, portanto, vai calcular 
+o valor que deve ser pago para uma determinada extração. Após a extração, o código 
+ficará assim:
 
 ```js
-function gerarFaturaStr (fatura, pecas) {
+function gerarFaturaStr(fatura, pecas) {
 
     function calcularTotalApresentacao(apre, peca) {
       let total = 0;
       switch (peca.tipo) {
         ...
-      ...  
+      ...
+      return total;
     }
     ...
     let total = calcularTotalApresentacao(apre, peca);
@@ -95,7 +97,7 @@ function gerarFaturaStr (fatura, pecas) {
 ```
 
 Veja que em JavaScript podemos ter uma função implementada dentro de uma função 
-mais externa, tal como ocorre no código acima.
+mais externa, tal como no código acima.
 
 Execute seu código, para garantir que está tudo funcionando do mesmo jeito.
 
@@ -110,10 +112,10 @@ Vamos então substituitir a variável local `peca` usada no corpo principal
 de `gerarFaturaStr` por uma função que retorna o seu valor.
 
 Primeiro, vamos criar a função *query*  (`getPeca`) e chamá-la no corpo 
-principal de `gerarFaturaStr`
+principal de `gerarFaturaStr`.
 
 ```js
-function gerarFaturaStr (fatura, pecas) {
+function gerarFaturaStr(fatura, pecas) {
 
     function getPeca(apresentacao) {
       return pecas[apresentacao.id];
@@ -124,7 +126,7 @@ function gerarFaturaStr (fatura, pecas) {
       const peca = getPeca(apre);
 ```
 
-No próximo passo, você pode:
+No próximo passo, você deve:
 - deletar a declaração da variável local `peca`. Isto é, deletar (ou comentar) a linha
 
   `const peca = getPeca(apre);` 
@@ -136,10 +138,13 @@ Feito isso, rode o código para garantir que está tudo funcionando.
 
 **Qual o benefício desse refactoring?**
 
-Após esse refactoring, nós podemos prosseguir e remover também o parâmetro `peca` de `calcularTotalApresentcao` e substituir os seus usos por chamadas a `getPeca`. Isso torna a função mais simples, pois ela terá apenas um parâmetro, em vez de dois como antes.
+Após esse refactoring, nós podemos prosseguir e remover também o parâmetro `peca` de 
+`calcularTotalApresentcao` e substituir os seus usos por chamadas a `getPeca`. 
+Isso torna a função mais simples, pois ela terá apenas um parâmetro, em vez de 
+dois como antes.
 
-Especificamente, você deve agora:
-- remover o parâmetro `peca` de `calcularTotalApresentacao`. Logo, essa função terá agora 
+Especificamente, você deve:
+- remover o parâmetro `peca` de `calcularTotalApresentacao`. Logo, ela terá agora 
   um único parâmetro (`apre`).
 - No corpo de `calcularTotalApresentacao`, substituir todos os usos do parâmetro 
   removido por chamadas a `getPeca`.
@@ -153,11 +158,14 @@ Em seguida, dê um **Commit & Push**, com a descrição: "Commit 3 - Replace Tem
 
 #### Extraindo a função `CalcularCredito`
 
-Extraia agora mais uma função, que ficará responsável por calcular quantos créditos o cliente 
-ganhará com uma apresentação. Veja como ficará o código:
+Vamos agora extrair mais uma função, para calcular quantos créditos o cliente 
+ganhará com uma apresentação. No nosso sistema, créditos é uma espécie de bônus
+ou descontos para compras de apresentações de teatro no futuro.
+
+Veja como ficará o código:
 
 ```js
-function gerarFaturaStr (fatura, pecas) {
+function gerarFaturaStr(fatura, pecas) {
 
     function calcularCredito(apre) {
       let creditos = 0;
@@ -176,8 +184,8 @@ Feito isso, rode o código para garantir que está tudo funcionando.
 
 #### Extraindo a função `formatarMoeda`
 
-Para simplificar, vamos também extrair a inicialização da variável local `format`para uma
-função e remover essa variável:
+Para simplificar, vamos também extrair a inicialização da variável local 
+`format`para uma função e remover essa variável:
 
 ```js
 function gerarFaturaStr (fatura, pecas) {
@@ -189,7 +197,8 @@ function gerarFaturaStr (fatura, pecas) {
     }
 ```
 
-Feito isso, remova o código extraído do corpo da função principal e chame a nova função (`formatarMoeda`). 
+Feito isso, remova o código extraído do corpo da função principal e, no seu lugar, 
+chame a nova função (`formatarMoeda`). 
 
 Para garantir que está tudo funcionando, rode o código.
 
@@ -197,13 +206,15 @@ Em seguida, dê um **Commit & Push**, com a descrição: "Commit 4 - Mais Extrac
 
 #### 5. Separando Apresentação dos Cálculos
 
-Agora, vamos fazer uma simplificação grande no corpo da função principal, que deverá ficar assim:
+Estamos agora em um ponto importante do roteiro, no qual vamos fazer uma simplificação grande 
+no corpo da função principal, que deverá ficar assim:
 
 ```js
 function gerarFaturaStr (fatura, pecas) {
 
   // funções aninhadas
-  
+
+  // corpo principal (após funções aninhadas)
   let faturaStr = `Fatura ${fatura.cliente}\n`;
   for (let apre of fatura.apresentacoes) {
       faturaStr += `  ${getPeca(apre).nome}: ${formatarMoeda(calcularTotalApresentacao(apre))} (${apre.audiencia} assentos)\n`;
@@ -213,15 +224,14 @@ function gerarFaturaStr (fatura, pecas) {
   return faturaStr;
 }  
 ```
-
-Veja agora que esse código fica responsável apenas por retornar uma string com a fatura 
+Veja que esse código é responsável apenas por retornar uma string com a fatura 
 formatada. Para isso, você deverá extrair mais uma função, chamada `calcularTotalFatura()`,
 que já está sendo chamada no código acima.
 
-Explicando melhor agora temos um método focado em apresentação, com poucas linhas de 
-código e muito menor do que a versão inicial com a qual começamos esse roteiro,
-no passo #1. Evidentemente, esse método chama métodos com a lógica para cálculo dos 
-totais da fatura, especificamente:
+Explicando melhor: agora, temos um método focado em apresentação (ou interface com o usuário), 
+cujo corpo principla possui poucas linhas de código e que é muito menor do que a versão 
+inicial com a qual começamos esse roteiro. Evidentemente, esse método chama métodos 
+para cálculo dos totais da fatura, especificamente:
 
 * `calcularTotalApresentacao`
 * `calcularTotalFatura`
