@@ -42,7 +42,7 @@ de algumas peças para certos clientes. E ela quer no final do mês gerar uma
 fatura para tais clientes, com o valor do serviço prestado.
 
 Primeiro, estude com calma a versão inicial da função `gerarFaturaStr`, 
-disponível neste [link](https://replit.com/@engsoftmoderna/RoteiroRefactoringJS#).
+disponível neste [link](https://github.com/mtov/RoteiroRefactoringJS/blob/main/index.js).
 
 **Importante:**
 
@@ -50,8 +50,11 @@ disponível neste [link](https://replit.com/@engsoftmoderna/RoteiroRefactoringJS
   pela companhia. Por isso, existem funções chamadas, por exemplo, `getPeca`. 
 
 * Os dados das apresentações feitas pela companhia de teatro estão
-em um [arquivo]() no formato JSON. Em um segundo [arquivo](), estão informações 
-sobre as peças do repertório da companhia de teatro.
+em um 
+[arquivo](https://github.com/mtov/RoteiroRefactoringJS/blob/main/faturas.json) 
+no formato JSON. Em um segundo 
+[arquivo](https://github.com/mtov/RoteiroRefactoringJS/blob/main/pecas.json), 
+estão informações sobre as peças do repertório da companhia de teatro.
 
 Execute também a função do exemplo usando o comando: 
 
