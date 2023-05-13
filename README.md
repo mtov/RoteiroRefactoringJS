@@ -6,26 +6,26 @@ Objetivo: colocar em prática os conceitos de refactoring aprendidos na sala de 
 Para isso, você vai realizar alguns refactorings em um sistema hipotético, 
 também usado no primeiro capítulo da segunda edição do 
 [livro](https://martinfowler.com/books/refactoring.html)
-do Fowler, que é o livro clássico sobre o tema.
+do Martin Fowler, que é o livro clássico sobre o tema.
 
 Para tirar proveito do roteiro é **importante não apenas seguir os passos mecanicamente, 
 mas também analisar os benefícios alcançados com cada refactoring**. Ou seja, pense 
 sempre nos motivos que tornam o código refatorado melhor do que o código anterior.
 
-Em caso de dúvida, você pode consultar o [Capítulo 9](https://engsoftmoderna.info/cap9.html) do nosso livro.
+Em caso de dúvida, você pode consultar o [Capítulo 9](https://engsoftmoderna.info/cap9.html) 
+do nosso livro.
 
 O exemplo está em JavaScript, mas a sintaxe é familiar mesmo para aqueles que nunca programaram 
-nessa linguagem. Infelizmente, não é possível fazer em uma outra linguagem, pois a correção será 
-automática. 
+nessa linguagem. 
 
-Você vai precisar de ter instalado também o `node.js` (para mais informações clique 
-[aqui](https://nodejs.org/en/download)).
+Para executar o código, você vai precisar instalar o `node.js`. Para mais informações clique 
+[aqui](https://nodejs.org/en/download).
 
 Instruções:
 
 * Primeiro, crie um repositório no GitHub.
 
-* Vá seguindo o roteiro, refactoring a refactoring.
+* Siga o roteiro, refactoring a refactoring.
 
 * Após cada etapa, dê um **COMMIT & PUSH**, adicionado uma descrição (mensagem) no commit 
 conforme as instruções do roteiro. Esses commits serão usados na correção, para garantir 
@@ -34,15 +34,14 @@ que você realizou todos os refactorings solicitados.
 * **Códigos que não compilam -- em qualquer um dos refactorings e passos -- serão avaliados 
   om nota zero pelo nosso sistema de correção automática**.
 
-
 ## 1. Função inicial
 
-O sistema do nosso exemplo é usado por uma companhia de teatro de teatro
-para gerar faturas. Explicando um poudo mais, essa companhia faz apresentações 
+A funçaõ que iremos refatorar faz parte de um sistema usado por uma companhia de teatro
+para gerar faturas. Explicando um pouco mais, essa companhia faz apresentações 
 de algumas peças para certos clientes. E ela quer no final do mês gerar uma 
-fatura para tais clientes, explicitando o valor que ela deve receber.
+fatura para tais clientes, com o valor do serviço prestado.
 
-Primeiro, estude então a versão inicial da função `gerarFaturaStr`, 
+Primeiro, estude com calma a versão inicial da função `gerarFaturaStr`, 
 disponível neste [link](https://replit.com/@engsoftmoderna/RoteiroRefactoringJS#).
 
 **Importante:**
@@ -51,11 +50,10 @@ disponível neste [link](https://replit.com/@engsoftmoderna/RoteiroRefactoringJS
   pela companhia. Por isso, existem funções chamadas, por exemplo, `getPeca`. 
 
 * Os dados das apresentações feitas pela companhia de teatro estão
-em um [arquivo json](). Em um segundo [arquivo](), estão informações sobre 
-as peças do repertório da companhia de teatro.
+em um [arquivo]() no formato JSON. Em um segundo [arquivo](), estão informações 
+sobre as peças do repertório da companhia de teatro.
 
-Você deve também executar a função do nosso exemplo usando o 
-comando `npm`: 
+Execute também a função do exemplo usando o comando: 
 
 `node index.js`
 
