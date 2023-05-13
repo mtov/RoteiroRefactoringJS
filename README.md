@@ -240,3 +240,80 @@ para cálculo dos totais da fatura, especificamente:
 Para garantir que está tudo funcionando, rode o código.
 
 Em seguida, dê um **Commit & Push**, com a descrição: "Commit 5 - Separando Apresentação dos Cálculos".
+
+## 6. Move Function
+
+Agora você deve mover todas as funções aninhadas em `gerarFaturaStr` para "fora" dessa função
+(normalmente, um Move Function move funções de um arquivo para outro; mas estamos considerando
+que ele aplica-se também a movimentações de funções aninhadas para um escopo mais externo).
+
+Tentando ser bem claro, após essa refatoração, o código vai ficar como mostrado a seguir.
+Observe que algumas funções ganharam um parâmetro extra (`peca`). Logo, a chamada delas também
+deve ser ajustada, para incluir esse novo parâmetro.
+
+```js
+function formatarMoeda(valor) {
+  ...
+}
+
+function getPeca(pecas, apre) {
+  ...
+}
+
+function calcularCredito(pecas, apre) {  
+  ...
+}
+
+function calcularTotalCreditos(pecas, apresentacoes) {
+  ...
+}
+
+function calcularTotalApresentacao(pecas, apre) {
+  ...
+}
+
+function calcularTotalFatura(pecas, apresentacoes) {
+   ...
+}
+
+function gerarFaturaStr(fatura, pecas) {
+  ...
+}    
+```
+
+Para garantir que está tudo funcionando, rode o código.
+
+Em seguida, dê um **Commit & Push**, com a descrição: "Commit 6 - Move Function".
+
+## 7. Fatura em HTML
+
+O refactoring anterior vai facilitar bastante a criação de um segundo tipo
+de fatura, agora em HTML. Essa fatura deverá ser assim:
+
+```html
+<html>
+<p> Fatura UFMG </p>
+<ul>
+<li>  Hamlet: R$ 650,00 (55 assentos) </li>
+<li>  As You Like It: R$ 580,00 (35 assentos) </li>
+<li>  Othello: R$ 500,00 (40 assentos) </li>
+</ul>
+<p> Valor total: R$ 1.730,00 </p>
+<p> Créditos acumulados: 47 </p>
+</html>
+```
+
+Especificamente, você deverá:
+
+* Criar uma nova função `gerarFaturaHTML` que gera uma fatura como essa acima.
+* Acrescentar uma chamada para essa função no programa principal.
+
+É importante ver como foi fácil criar essa segunda forma de apresentação
+de uma fatura. Todas as funções de "cálculo" foram integralmente reusadas.
+Sendo mais claro, focamos a mudança na lógica de apresentação e não na
+lógica de negócio.
+
+Para garantir que está tudo funcionando, rode o código. Veja que agora o 
+programa irá exibir duas faturas: uma em string e outra em HTML.
+
+Em seguida, dê um **Commit & Push**, com a descrição: "Commit 7 - Fatura em HTML".
