@@ -497,10 +497,11 @@ var Repositorio = require("./repositorio.js")
 
 Para garantir que está tudo funcionando, rode o código. 
 
-Agora crie mais dois arquivos:
+Agora crie mais três arquivos:
 
-* `util.js`: e mova para ele a função `formatarMoeda`.
-* `servico.js`: e mova para ele a classe `ServicoCalculoFatura`
+* `util.js`: e mova para ele a função `formatarMoeda`..
+* `servico.js`: e mova para ele a classe `ServicoCalculoFatura`.
+* `apresentacao.js`: e mova para ela a função `gerarFaturaStr`.
 
 Feito isso, o arquivo principal (`index.js`) deverá ficar desse jeito:
 
@@ -509,15 +510,11 @@ const { readFileSync } = require('fs');
 
 var Repositorio = require("./repositorio.js")
 var ServicoCalculoFatura = require("./servico.js") 
-var formatarMoeda = require("./util.js")
-
-function gerarFaturaStr(fatura, calc) {
-  ...
-}
+var gerarFaturaStr = require("./apresentacao.js");
 
 // main
 const faturas = JSON.parse(readFileSync('./faturas.json'));
-calc = new ServicoCalculoFatura(new Repositorio());
+const calc = new ServicoCalculoFatura(new Repositorio());
 const faturaStr = gerarFaturaStr(faturas, calc);
 console.log(faturaStr);
 ```
@@ -526,16 +523,17 @@ Em seguida, dê um **Commit & Push**, com a descrição: "Commit 10 - Criando Ar
 
 ## Comentários Finais
 
-Neste roteiro, nós começamos com uma função monolítica para geração de faturas.
+Neste roteiro, nós começamos com uma função monolítica para geração de faturas, com
+74 linhas de código.
 
-E, por meio de sucessivas refatorações, vamos, em *baby steps*, extraindo interesses dessa função:
+E, por meio de sucessivas refatorações, extraímos vários interesses dessa função:
 
 * Primeiro, quebramos a função original em funções menores, mas ainda aninhadas.
 * Depois, criamos uma classe com métodos para cálculo dos valores da fatura. Com isso, 
   viabilizamos uma segunda interface para o sistema, em HTML.
-* Nos passos seguinte, extraímos uma classe de serviço e um repositório. Com isso, diminuímo o 
+* Nos passos seguintes, extraímos uma classe de serviço e um repositório. Com isso, diminuímo o 
 acoplamento entre as funções de cálculo, que passaram a ter um parâmetro a menos. Já a classe
-repositótio encapsulou o acesso a um dos arquivos JSON.
-* Por mim, dividimos as funções e classes em três arquivos: funções utilitárias, classes de
-serviço (lógica de negócio) e repositório (classe de acesso a dados). No arquivo principal,
-ficou apenas a função de apresentação (interface com o usuário) e o programa principal.
+repositótro encapsulou o acesso a um dos arquivos JSON.
+* Por fim, dividimos as funções e classes em quatro arquivos: função de interface com o usuário, 
+classe de serviço (lógica de negócio), repositório (classe de acesso a dados) e funções utilitáris. 
+No arquivo principal, ficou apenas o programa principal, com 11 linhas de código.
