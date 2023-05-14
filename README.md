@@ -244,7 +244,7 @@ Em seguida, dê um **Commit & Push**, com a descrição: "Commit 5 - Separando A
 ## 6. Move Function
 
 Agora você deve mover todas as funções aninhadas em `gerarFaturaStr` para "fora" dessa função.
-Normalmente, um Move Function move funções de um arquivo para outro; mas estamos considerando
+Normalmente, um Move Function move funções de um arquivo para outro; mas vamos considerar
 que ele aplica-se também a movimentações de funções aninhadas para um escopo mais externo.
 
 Após essa refatoração, o código vai ficar como mostrado a seguir. Observe que algumas funções 
@@ -305,7 +305,7 @@ de fatura, agora em HTML, tal como mostrado a seguir:
 
 Especificamente, você deverá:
 
-* Criar uma nova função `gerarFaturaHTML` que gera uma fatura como essa acima.
+* Criar uma nova função `gerarFaturaHTML` que retorna uma fatura como essa acima.
 * Acrescentar uma chamada para essa função no programa principal.
 
 Ou seja, teremos agora duas funções para geração de faturas:
@@ -332,12 +332,13 @@ Em seguida, dê um **Commit & Push**, com a descrição: "Commit 7 - Fatura em H
 
 ## 7. Criando uma classe `ServicoCalculoFatura`
 
-Agora, vamos fazer uma mudança muito importante no programa: vamos criar uma
+Agora, vamos fazer uma mudança muito importante no programa: criar uma
 classe, chamada `ServicoCalculoFatura` para modularizar a implementação das
-funções de cálculo. Ou seja, essa classe vai ter o seguinte formato:
+funções de cálculo. Ou seja, essa classe vai ter o seguinte código:
 
 ```js
 class ServicoCalculoFatura {
+
    calcularCredito(pecas, apre) {
      ...
    }
@@ -357,23 +358,21 @@ Ou seja, criamos a classe e movemos para ela todos os métodos de cálculo.
 
 Importante:
 
-1. Os métodos de uma classe não são precedidos da palavra reservada `function`, tal como 
-pode ser visto no código acima.
+1. Os métodos de uma classe não são precedidos de `function`, tal como 
+pode ser visto no código acima. 
 
-2. Quando um método da classe chama um outro método, essa chamada deve ser feita 
+2. Quando um método da classe chama um outro método, a chamada deve ser feita 
 tendo como alvo o objeto `this`. Exemplo:
 
 ```js
 calcularTotalFatura(pecas, apresentacoes) {
-   let total = 0;
-   for (let apre of apresentacoes) {
-     total += this.calcularTotalApresentacao(pecas, apre); 
-   }  
-   return total;         
-}
+   ...
+   total += this.calcularTotalApresentacao(pecas, apre); 
+   ...
+}  
 ```
 
-3. No programa principal, você deve agora criar um objeto da nova classe
+3. No programa principal, você deve criar um objeto da nova classe
 e passá-lo como parâmetro de `gerarFaturaStr`
 
 ```js
@@ -381,12 +380,16 @@ calc = new ServicoCalculoFatura();
 const faturaStr = gerarFaturaStr(faturas, pecas, calc);
 ```
 
-4. Por fim, no corpo `gerarFaturaStr` as chamadas dos métodos de cálculo deverão
-ser feitas usando o novo parâmetro `calc`, tal como nesse exemplo:
+4. Por fim, no corpo de `gerarFaturaStr` as chamadas dos métodos de cálculo usarão 
+o parâmetro `calc` como objeto alvo. Veja um exemplo:
 
 ```js
 calc.calcularTotalApresentacao(pecas, apre)
 ```
+
+5. Para evitar que o programe fiquei com duas saídas, comente o corpo da função
+`gerarFaturaHTML` e sua respectiva chamada. Ou seja, vamos voltar a ter apenas 
+uma saída, por questões de simplicidade.
 
 Para garantir que está tudo funcionando, rode o código. 
 
@@ -395,7 +398,7 @@ Em seguida, dê um **Commit & Push**, com a descrição: "Commit 8 - Classe Serv
 ## 9. Criando um `Repositório`
 
 Agora vamos criar nossa segunda classe, chamada `Repositorio` que vai encapsular o
-arquivo JSON com os dados das peças do repertório da companhia de teatro. Segue o
+arquivo JSON com informações sobre as peças do repertório da companhia de teatro. Segue o
 seu código:
 
 ```js
@@ -407,39 +410,117 @@ class Repositorio {
   getPeca(apre) {
     return this.pecas[apre.id];
   }
-}
-```
+}```
 
 E também crie o seguinte construtor na classe `ServicoCalculoFatura`:
 
 ```js
 class ServicoCalculoFatura {
 
-  constructor(repo) {
-     this.repo = new Repositorio();
+   constructor(repo) {
+     this.repo = repo;
   }
-  ...
+ ...
 ```  
 
 Em seguida, faça os ajustes necessários:
 
-1. Todos os métodos `calcular` de  `ServicoCalculoFatura` não vai mais precisar do parâmetro `pecas`, que poderá ser removido.
+1. Todos os métodos `calcular` de  `ServicoCalculoFatura` não precisam mais do 
+parâmetro `pecas`, que poderá ser removido.
 
-2. Agora, para chamar `getPecas` esses métodos vão ter que fazer a chamada como nesse exemplo:
+2. Agora,esses métodos vão ter que chamar `getPecas` como nesse exemplo:
 
 ```js
 if (this.repo.getPeca(apre).tipo === "comedia") 
 ```  
 
-3. A função `gerarFaturaStr` também não vai mais precisar do parâmetro `pecas`, que poderá ser removido.
+3. A função `gerarFaturaStr` também não vai mais precisar do parâmetro `pecas`, 
+que poderá ser removido.
 
 4. Em `gerarFaturaStr`, a chamada a `getPeças` deverá ser feita assim:
 
 ```js
 calc.repo.getPeca(apre).nome
+``` 
 
-5. No programa principal, não vamos mais precisar de ler o arquivo de peças.
+5. No programa principal, não vamos mais precisar de ler o arquivo de peças:
 
+```js
+const faturas = JSON.parse(readFileSync('./faturas.json'));
+calc = new ServicoCalculoFatura(new Repositorio());
+const faturaStr = gerarFaturaStr(faturas, calc);
+console.log(faturaStr);
+```
 Para garantir que está tudo funcionando, rode o código. 
 
 Em seguida, dê um **Commit & Push**, com a descrição: "Commit 9 - Classe Repositorio".
+
+Quais foram as vantagens da criação dessas classes? 
+
+* Conseguimos separar mais claramente um segundo requisito do sistema: 
+recuperação de dados de peças, que atualmente estão em um arquivo JSON.
+Se amanhã quisermos armazenar esses dados em um banco de dados relacional,
+precisaremos apenas de criar um novo repositório, por exemplo, `RepositorioBD`.
+
+* O repositório agora é um atributo da classe `ServicoCalculoFatura. Com isso,
+conseguimos tornar a assinatura dos métodos de cálculo mais simples, isto é,
+com um parâmetros a menos (no caso, `pecas`).
+
+### 10. Criando Arquivos 
+
+Vamos agora criar alguns arquivos e mover as classes e funções atuais para
+eles.
+
+Para começar, crie um arquivo `repositorio.js` e mova a classe `Repositorio` para ele.
+E não esqueça de "exportá-la" conforme requerido pelo Node.js:
+
+```js
+// arquivo repositorio.js
+const { readFileSync } = require('fs');
+
+module.exports = class Repositorio {
+    constructor() {
+      this.pecas = JSON.parse(readFileSync('./pecas.json'));
+    }
+  
+    getPeca(apre) {
+      return this.pecas[apre.id];
+    }
+  }
+```
+
+No arquivo principal, importe essa classe:
+
+```js
+var Repositorio = require("./repositorio.js")
+```
+
+Para garantir que está tudo funcionando, rode o código. 
+
+Agora crie mais dois arquivos:
+
+* `util.js`: e mova para ele a função `formatarMoeda`.
+* `servico.js`: e mova para ele a classe `ServicoCalculoFatura`
+
+Feito isso, o arquivo principal (`index.js`) deverá ficar desse jeito:
+
+```js
+const { readFileSync } = require('fs');
+
+var Repositorio = require("./repositorio.js")
+var ServicoCalculoFatura = require("./servico.js") 
+var formatarMoeda = require("./util.js")
+
+function gerarFaturaStr(fatura, calc) {
+  ...
+}
+
+// main
+const faturas = JSON.parse(readFileSync('./faturas.json'));
+calc = new ServicoCalculoFatura(new Repositorio());
+const faturaStr = gerarFaturaStr(faturas, calc);
+console.log(faturaStr);
+```
+
+Em seguida, dê um **Commit & Push**, com a descrição: "Commit 10 - Criando Arquivos".
+
