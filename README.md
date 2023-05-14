@@ -484,7 +484,7 @@ por exemplo, `RepositorioBD`.
 conseguimos tornar a assinatura dos métodos de cálculo mais simples, isto é,
 com um parâmetros a menos.
 
-### 10. Particionando o Sistema em Arquivos 
+### 10. Particionamento em Arquivos 
 
 Vamos agora criar alguns arquivos e mover as classes e funções atuais para
 eles.
@@ -567,4 +567,9 @@ repositótro encapsulou o acesso a um dos arquivos JSON.
 classe de serviço (lógica de negócio), repositório (acesso a dados) e funções utilitáris. 
 No arquivo principal, ficou apenas o programa principal, com 11 linhas de código.
 
+**Vantagens da versão refatorada:**
+* Código mais simples e fácil de entender
+* Código mais simples de evoluir, isto é, implementar novas funcionalidades
 
+**Desvantagens da versão refatorada:**
+* O código monolítico tem menos chamadas de função, logo ele possui um melhor desempenho. Por outro, esse ganho somente será perceptível e relevante caso o código execute em um hardware muito limitado e caso desempenho seja um requisito muito importante e crítico.
