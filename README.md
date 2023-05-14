@@ -524,3 +524,18 @@ console.log(faturaStr);
 
 Em seguida, dê um **Commit & Push**, com a descrição: "Commit 10 - Criando Arquivos".
 
+## Comentários Finais
+
+Neste roteiro, nós começamos com uma função monolítica para geração de faturas.
+
+E, por meio de sucessivas refatorações, vamos, em *baby steps*, extraindo interesses dessa função:
+
+* Primeiro, quebramos a função original em funções menores, mas ainda aninhadas.
+* Depois, criamos uma classe com métodos para cálculo dos valores da fatura. Com isso, 
+  viabilizamos uma segunda interface para o sistema, em HTML.
+* Nos passos seguinte, extraímos uma classe de serviço e um repositório. Com isso, diminuímo o 
+acoplamento entre as funções de cálculo, que passaram a ter um parâmetro a menos. Já a classe
+repositótio encapsulou o acesso a um dos arquivos JSON.
+* Por mim, dividimos as funções e classes em três arquivos: funções utilitárias, classes de
+serviço (lógica de negócio) e repositório (classe de acesso a dados). No arquivo principal,
+ficou apenas a função de apresentação (interface com o usuário) e o programa principal.
