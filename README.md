@@ -2,8 +2,8 @@
 
 **Prof. Marco Tulio Valente**
 
-Objetivo: colocar em prática os conceitos de refactoring aprendidos na sala de aula. 
-Para isso, você vai realizar alguns refactorings em um sistema hipotético, 
+Neste roteiro, você vai colocar em prática os conceitos de refactoring aprendidos na 
+sala de aula. Para isso, você vai realizar alguns refactorings em um sistema hipotético, 
 também usado no primeiro capítulo da segunda edição do 
 [livro](https://martinfowler.com/books/refactoring.html)
 do Martin Fowler, que é o livro clássico sobre o tema.
@@ -19,7 +19,7 @@ O exemplo está em JavaScript, mas a sintaxe é familiar mesmo para aqueles que 
 nessa linguagem. 
 
 Para executar o código, você vai precisar instalar o `node.js`. Para mais informações clique 
-[aqui](https://nodejs.org/en/download).
+[aqui](https://nodejs.org/en/download). Você vai precisar também de uma IDE, como o VS Code.
 
 Instruções:
 
@@ -34,7 +34,7 @@ que você realizou todos os refactorings solicitados.
 * **Códigos que não compilam -- em qualquer um dos refactorings e passos -- serão avaliados 
   om nota zero pelo nosso sistema de correção automática**.
 
-## 1. Função inicial
+## 1. Função Inicial
 
 A funçaõ que iremos refatorar faz parte de um sistema usado por uma companhia de teatro
 para gerar faturas. Explicando um pouco mais, essa companhia faz apresentações 
@@ -77,12 +77,13 @@ Em seguida, dê um **Commit & Push**, com a descrição: "Commit 1 - Versão ini
 
 Agora, você deve extrair uma função com código do `switch` interno a `gerarFaturaStr`. 
 A nova função deve se chamar `calcularTotalApresentacao` e, portanto, vai calcular 
-o valor que deve ser pago para uma determinada extração. Após a extração, o código 
+o valor que deve ser pago para uma apresentação. Após a extração, o código 
 ficará assim:
 
 ```js
 function gerarFaturaStr(fatura, pecas) {
 
+    // função extraída
     function calcularTotalApresentacao(apre, peca) {
       let total = 0;
       switch (peca.tipo) {
@@ -117,6 +118,7 @@ principal de `gerarFaturaStr`.
 ```js
 function gerarFaturaStr(fatura, pecas) {
 
+     // função query
     function getPeca(apresentacao) {
       return pecas[apresentacao.id];
     }
@@ -330,7 +332,7 @@ programa deverá exibir duas faturas: uma em string e outra em HTML.
 
 Em seguida, dê um **Commit & Push**, com a descrição: "Commit 7 - Fatura em HTML".
 
-## 7. Criando uma classe `ServicoCalculoFatura`
+## 7. Criando uma Classe de Serviço
 
 Agora, vamos fazer uma mudança muito importante no programa: criar uma
 classe, chamada `ServicoCalculoFatura` para modularizar a implementação das
@@ -358,8 +360,7 @@ Ou seja, criamos a classe e movemos para ela todos os métodos de cálculo.
 
 Importante:
 
-1. Os métodos de uma classe não são precedidos de `function`, tal como 
-pode ser visto no código acima. 
+1. Os métodos de uma classe não são precedidos de `function`.
 
 2. Quando um método da classe chama um outro método, a chamada deve ser feita 
 tendo como alvo o objeto `this`. Exemplo:
@@ -395,7 +396,7 @@ Para garantir que está tudo funcionando, rode o código.
 
 Em seguida, dê um **Commit & Push**, com a descrição: "Commit 8 - Classe ServicoCalculoFatura".
 
-## 9. Criando um `Repositório`
+## 9. Criando um Repositório
 
 Agora vamos criar nossa segunda classe, chamada `Repositorio` que vai encapsular o
 arquivo JSON com informações sobre as peças do repertório da companhia de teatro. Segue o
@@ -410,7 +411,8 @@ class Repositorio {
   getPeca(apre) {
     return this.pecas[apre.id];
   }
-}```
+}
+```
 
 E também crie o seguinte construtor na classe `ServicoCalculoFatura`:
 
@@ -428,7 +430,7 @@ Em seguida, faça os ajustes necessários:
 1. Todos os métodos `calcular` de  `ServicoCalculoFatura` não precisam mais do 
 parâmetro `pecas`, que poderá ser removido.
 
-2. Agora,esses métodos vão ter que chamar `getPecas` como nesse exemplo:
+2. Agora, esses métodos vão ter que chamar `getPecas` como nesse exemplo:
 
 ```js
 if (this.repo.getPeca(apre).tipo === "comedia") 
@@ -443,7 +445,8 @@ que poderá ser removido.
 calc.repo.getPeca(apre).nome
 ``` 
 
-5. No programa principal, não vamos mais precisar de ler o arquivo de peças:
+5. No programa principal, não vamos mais precisar de ler o arquivo de peças.
+Veja o código dele a seguir:
 
 ```js
 const faturas = JSON.parse(readFileSync('./faturas.json'));
@@ -472,7 +475,7 @@ Vamos agora criar alguns arquivos e mover as classes e funções atuais para
 eles.
 
 Para começar, crie um arquivo `repositorio.js` e mova a classe `Repositorio` para ele.
-E não esqueça de "exportá-la" conforme requerido pelo Node.js:
+E não esqueça de exportá-la conforme requerido pelo Node.js:
 
 ```js
 // arquivo repositorio.js
@@ -486,7 +489,7 @@ module.exports = class Repositorio {
     getPeca(apre) {
       return this.pecas[apre.id];
     }
-  }
+}
 ```
 
 No arquivo principal, importe essa classe:
@@ -528,8 +531,6 @@ flowchart LR
     main --> apresentação --> serviço  --> repositório 
     apresentação --> util
 ```
-
-
 
 ## Comentários Finais
 
