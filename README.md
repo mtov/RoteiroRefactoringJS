@@ -525,8 +525,8 @@ Veja também a arquitetura final do sistema:
 
 ```mermaid
 flowchart LR
-    main <--> apresentação <--> serviço  <--> repositório 
-    apresentação <--> util
+    main --> apresentação --> serviço  --> repositório 
+    apresentação --> util
 ```
 
 
