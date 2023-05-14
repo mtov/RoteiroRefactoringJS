@@ -521,6 +521,16 @@ console.log(faturaStr);
 
 Em seguida, dê um **Commit & Push**, com a descrição: "Commit 10 - Criando Arquivos".
 
+Veja também a arquitetura final do sistema:
+
+```mermaid
+flowchart LR
+    main <--> aprsentação <--> serviço  <--> repositório 
+    apresentação <--> util
+```
+
+
+
 ## Comentários Finais
 
 Neste roteiro, nós começamos com uma função monolítica para geração de faturas, com
