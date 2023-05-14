@@ -31,8 +31,8 @@ Instruções:
 conforme as instruções do roteiro. Esses commits serão usados na correção, para garantir 
 que você realizou todos os refactorings solicitados. 
 
-* **Códigos que não compilam -- em qualquer um dos refactorings e passos -- serão avaliados 
-  om nota zero pelo nosso sistema de correção automática**.
+* Códigos que não compilam -- em qualquer um dos refactorings e passos -- serão avaliados 
+  com nota zero pelo nosso sistema de correção automática.
 
 ## 1. Função Inicial
 
@@ -356,12 +356,15 @@ class ServicoCalculoFatura {
    calcularCredito(pecas, apre) {
      ...
    }
+   
    calcularTotalCreditos(pecas, apresentacoes) {
       ...
    }
+   
    calcularTotalApresentacao(pecas, apre) {
       ...
    }
+   
    calcularTotalFatura(pecas, apresentacoes) {
       ... 
    }
@@ -481,7 +484,7 @@ por exemplo, `RepositorioBD`.
 conseguimos tornar a assinatura dos métodos de cálculo mais simples, isto é,
 com um parâmetros a menos.
 
-### 10. Criando Arquivos 
+### 10. Particionando o Sistema em Arquivos 
 
 Vamos agora criar alguns arquivos e mover as classes e funções atuais para
 eles.
