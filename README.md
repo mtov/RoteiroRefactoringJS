@@ -23,7 +23,7 @@ Para executar o código, você vai precisar instalar o `node.js`. Para mais info
 
 Instruções:
 
-* Primeiro, crie um repositório no GitHub.
+* Primeiro, faça um fork deste repositório e, depois, um clone para sua máquina local.
 
 * Siga o roteiro, refactoring a refactoring.
 
