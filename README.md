@@ -41,7 +41,7 @@ para gerar faturas. Explicando um pouco mais, essa companhia faz apresentações
 de algumas peças para certos clientes. E ela quer no final do mês gerar uma 
 fatura para tais clientes, com o valor do serviço prestado.
 
-Primeiro, estude com calma a versão inicial da função `gerarFaturaStr`, 
+Primeiro, estude a versão inicial da função `gerarFaturaStr`, 
 disponível neste [link](https://github.com/mtov/RoteiroRefactoringJS/blob/main/index.js).
 
 **Importante:**
@@ -75,10 +75,11 @@ Em seguida, dê um **Commit & Push**, com a descrição: "Commit 1 - Versão ini
 
 ## 2. Extração de Função
 
-Agora, você deve extrair uma função com código do `switch` interno a `gerarFaturaStr`. 
+Agora, você deve extrair uma função com o código do `switch` interno a `gerarFaturaStr`. 
 A nova função deve se chamar `calcularTotalApresentacao` e, portanto, vai calcular 
-o valor que deve ser pago para uma apresentação. Após a extração, o código 
-ficará assim:
+o valor que deve ser pago para uma apresentação. 
+
+Após a extração, o código ficará assim:
 
 ```js
 function gerarFaturaStr(fatura, pecas) {
@@ -97,17 +98,17 @@ function gerarFaturaStr(fatura, pecas) {
 }          
 ```
 
-Veja que em JavaScript podemos ter uma função implementada dentro de uma função 
-mais externa, tal como no código acima.
+Importante: veja que em JavaScript podemos ter uma função implementada dentro de uma função 
+mais externa.
 
-Execute seu código, para garantir que está tudo funcionando do mesmo jeito.
+Execute seu código, para garantir que está tudo funcionando corretamente.
 
 Em seguida, dê um **Commit & Push**, com a descrição: "Commit 2 - Extração de Função".
 
 ## 3. Replace Temp with Query
 
 Esse refactoring substitui uma variável local (`temp`) por uma função que 
-apenas retorna seu valor, isto é, uma *query*.
+apenas retorna o seu valor, isto é, uma *query*.
 
 Vamos então substituitir a variável local `peca` usada no corpo principal 
 de `gerarFaturaStr` por uma função que retorna o seu valor.
@@ -161,7 +162,7 @@ Em seguida, dê um **Commit & Push**, com a descrição: "Commit 3 - Replace Tem
 #### Extraindo a função `CalcularCredito`
 
 Vamos agora extrair mais uma função, para calcular quantos créditos o cliente 
-ganhará com uma apresentação. No nosso sistema, créditos é uma espécie de bônus
+ganhará com uma apresentação. No nosso sistema, os créditos são uma espécie de bônus
 ou descontos para compras de apresentações de teatro no futuro.
 
 Veja como ficará o código:
@@ -169,6 +170,7 @@ Veja como ficará o código:
 ```js
 function gerarFaturaStr(fatura, pecas) {
 
+    // função extraída
     function calcularCredito(apre) {
       let creditos = 0;
       creditos += Math.max(apre.audiencia - 30, 0);
@@ -187,11 +189,12 @@ Feito isso, rode o código para garantir que está tudo funcionando.
 #### Extraindo a função `formatarMoeda`
 
 Para simplificar, vamos também extrair a inicialização da variável local 
-`format`para uma função e remover essa variável:
+`format` para uma função e remover essa variável:
 
 ```js
 function gerarFaturaStr(fatura, pecas) {
 
+    // função extraída
     function formatarMoeda(valor) {
       return new Intl.NumberFormat("pt-BR",
         { style: "currency", currency: "BRL",
@@ -202,13 +205,13 @@ function gerarFaturaStr(fatura, pecas) {
 Feito isso, remova o código extraído do corpo da função principal e, no seu lugar, 
 chame a nova função (`formatarMoeda`). 
 
-Para garantir que está tudo funcionando, rode o código.
+Para garantir que está tudo correto, rode o código.
 
 Em seguida, dê um **Commit & Push**, com a descrição: "Commit 4 - Mais Extract Functions".
 
 ## 5. Separando Apresentação dos Cálculos
 
-Estamos agora em um ponto importante do roteiro, no qual vamos fazer uma simplificação grande 
+Agora, estamos em um ponto importante do roteiro, no qual vamos fazer uma simplificação grande 
 no corpo da função principal, que deverá ficar assim:
 
 ```js
@@ -226,13 +229,14 @@ function gerarFaturaStr(fatura, pecas) {
   return faturaStr;
 }  
 ```
+
 Esse código apenas retorna uma string com a fatura formatada. Para que ele funcione corretamente, 
 você deverá extrair mais uma função, chamada `calcularTotalFatura()`, que já está sendo chamada 
 no código acima.
 
 Explicando melhor: agora, temos um método focado em apresentação (ou interface com o usuário), 
-cujo corpo principla possui poucas linhas de código e que é muito menor do que a versão 
-inicial com a qual começamos esse roteiro. Evidentemente, esse método chama métodos 
+cujo corpo principal possui poucas linhas de código e que é muito menor do que a versão 
+inicial com a qual começamos o roteiro. Evidentemente, esse método chama métodos 
 para cálculo dos totais da fatura, especificamente:
 
 * `calcularTotalApresentacao`
@@ -246,6 +250,7 @@ Em seguida, dê um **Commit & Push**, com a descrição: "Commit 5 - Separando A
 ## 6. Move Function
 
 Agora você deve mover todas as funções aninhadas em `gerarFaturaStr` para "fora" dessa função.
+
 Normalmente, um Move Function move funções de um arquivo para outro; mas vamos considerar
 que ele aplica-se também a movimentações de funções aninhadas para um escopo mais externo.
 
@@ -289,8 +294,8 @@ Em seguida, dê um **Commit & Push**, com a descrição: "Commit 6 - Move Functi
 
 ## 7. Fatura em HTML
 
-O refactoring anterior vai facilitar bastante a criação de um segundo tipo
-de fatura, agora em HTML, tal como mostrado a seguir:
+O refactoring anterior facilita a criação de um segundo tipo de fatura, agora em 
+HTML, tal como mostrado a seguir:
 
 ```html
 <html>
@@ -307,7 +312,7 @@ de fatura, agora em HTML, tal como mostrado a seguir:
 
 Especificamente, você deverá:
 
-* Criar uma nova função `gerarFaturaHTML` que retorna uma fatura como essa acima.
+* Implementar uma nova função `gerarFaturaHTML` que retorna uma fatura como essa acima.
 * Acrescentar uma chamada para essa função no programa principal.
 
 Ou seja, teremos agora duas funções para geração de faturas:
@@ -336,7 +341,9 @@ Em seguida, dê um **Commit & Push**, com a descrição: "Commit 7 - Fatura em H
 
 Agora, vamos fazer uma mudança muito importante no programa: criar uma
 classe, chamada `ServicoCalculoFatura` para modularizar a implementação das
-funções de cálculo. Ou seja, essa classe vai ter o seguinte código:
+funções de cálculo. 
+
+Essa classe vai ter o seguinte código:
 
 ```js
 class ServicoCalculoFatura {
@@ -377,20 +384,20 @@ calcularTotalFatura(pecas, apresentacoes) {
 e passá-lo como parâmetro de `gerarFaturaStr`
 
 ```js
-calc = new ServicoCalculoFatura();
+const calc = new ServicoCalculoFatura();
 const faturaStr = gerarFaturaStr(faturas, pecas, calc);
 ```
 
 4. Por fim, no corpo de `gerarFaturaStr` as chamadas dos métodos de cálculo usarão 
-o parâmetro `calc` como objeto alvo. Veja um exemplo:
+o parâmetro `calc` como alvo. Veja um exemplo:
 
 ```js
 calc.calcularTotalApresentacao(pecas, apre)
 ```
 
-5. Para evitar que o programe fiquei com duas saídas, comente o corpo da função
+5. Para evitar que o programe fique com duas saídas, comente o corpo da função
 `gerarFaturaHTML` e sua respectiva chamada. Ou seja, vamos voltar a ter apenas 
-uma saída, por questões de simplicidade.
+uma saída, apenas por questões de simplicidade.
 
 Para garantir que está tudo funcionando, rode o código. 
 
@@ -398,7 +405,7 @@ Em seguida, dê um **Commit & Push**, com a descrição: "Commit 8 - Classe Serv
 
 ## 9. Criando um Repositório
 
-Agora vamos criar nossa segunda classe, chamada `Repositorio` que vai encapsular o
+Agora vamos criar nossa segunda classe, chamada `Repositorio` que vai encapsular o acesso ao
 arquivo JSON com informações sobre as peças do repertório da companhia de teatro. Segue o
 seu código:
 
@@ -414,7 +421,7 @@ class Repositorio {
 }
 ```
 
-E também crie o seguinte construtor na classe `ServicoCalculoFatura`:
+E também crie um construtor na classe `ServicoCalculoFatura`:
 
 ```js
 class ServicoCalculoFatura {
@@ -460,14 +467,14 @@ Em seguida, dê um **Commit & Push**, com a descrição: "Commit 9 - Classe Repo
 
 Quais foram as vantagens da criação dessas classes? 
 
-* Conseguimos separar mais claramente um segundo requisito do sistema: 
-recuperação de dados de peças, que atualmente estão em um arquivo JSON.
-Se amanhã quisermos armazenar esses dados em um banco de dados relacional,
-precisaremos apenas de criar um novo repositório, por exemplo, `RepositorioBD`.
+* Conseguimos separar mais um requisito do sistema: a recuperação de dados de peças, 
+que atualmente estão em um arquivo JSON. Se amanhã quisermos armazenar esses dados 
+em um banco de dados relacional, precisaremos apenas de criar um novo repositório, 
+por exemplo, `RepositorioBD`.
 
 * O repositório agora é um atributo da classe `ServicoCalculoFatura. Com isso,
 conseguimos tornar a assinatura dos métodos de cálculo mais simples, isto é,
-com um parâmetros a menos (no caso, `pecas`).
+com um parâmetros a menos.
 
 ### 10. Criando Arquivos 
 
@@ -506,7 +513,7 @@ Agora crie mais três arquivos:
 * `servico.js`: e mova para ele a classe `ServicoCalculoFatura`.
 * `apresentacao.js`: e mova para ela a função `gerarFaturaStr`.
 
-Feito isso, o arquivo principal (`index.js`) deverá ficar desse jeito:
+Feito isso, o arquivo principal (`index.js`) deverá ficar assim:
 
 ```js
 const { readFileSync } = require('fs');
@@ -524,7 +531,7 @@ console.log(faturaStr);
 
 Em seguida, dê um **Commit & Push**, com a descrição: "Commit 10 - Criando Arquivos".
 
-Veja também a arquitetura final do sistema:
+Antes de concluirmos, veja a arquitetura final do sistema:
 
 ```mermaid
 flowchart LR
@@ -546,5 +553,5 @@ E, por meio de sucessivas refatorações, extraímos vários interesses dessa fu
 acoplamento entre as funções de cálculo, que passaram a ter um parâmetro a menos. Já a classe
 repositótro encapsulou o acesso a um dos arquivos JSON.
 * Por fim, dividimos as funções e classes em quatro arquivos: função de interface com o usuário, 
-classe de serviço (lógica de negócio), repositório (classe de acesso a dados) e funções utilitáris. 
+classe de serviço (lógica de negócio), repositório (acesso a dados) e funções utilitáris. 
 No arquivo principal, ficou apenas o programa principal, com 11 linhas de código.
