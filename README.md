@@ -157,7 +157,7 @@ Especificamente, você deve:
 Em seguida, dê um **Commit & Push**, com a descrição: "Commit 3 - Replace Temp with Query
 ".
 
-## 4. Mais Extract Functions
+## 4. Mais Extração de Funções
 
 #### Extraindo a função `CalcularCredito`
 
@@ -567,8 +567,4 @@ repositótro encapsulou o acesso a um dos arquivos JSON.
 classe de serviço (lógica de negócio), repositório (acesso a dados) e funções utilitáris. 
 No arquivo principal, ficou apenas o programa principal, com 11 linhas de código.
 
-É importante ressaltar também que quase todas as mudanças que fizemos foram refatorações. 
-Ou seja, elas foram realizadas para melhorar o entendimento do código e para torná-lo 
-mais flexível a mudanças futuras. O comportamento, isto é, a saída do programa sempre 
-continuou a mesma (com exceção de quando adicionamos, temporariamente, uma função para 
-gerar faturas também em HTML, no passo 7).
+
