@@ -337,6 +337,11 @@ programa deverá exibir duas faturas: uma em string e outra em HTML.
 
 Em seguida, dê um **Commit & Push**, com a descrição: "Commit 7 - Fatura em HTML".
 
+Uma última reflexão importante, antes de conluir: tecnicamente, neste passo, o que 
+fizemos não foi uma refatoração, mas a adição de uma nova funcionalidade no programa.
+Ou seja, o seu comportamento mudou, pois ele passou a exibir como saída faturas 
+também em HTML.
+
 ## 7. Criando uma Classe de Serviço
 
 Agora, vamos fazer uma mudança muito importante no programa: criar uma
@@ -547,11 +552,20 @@ Neste roteiro, nós começamos com uma função monolítica para geração de fa
 E, por meio de sucessivas refatorações, extraímos vários interesses dessa função:
 
 * Primeiro, quebramos a função original em funções menores, mas ainda aninhadas.
+
 * Depois, criamos uma classe com métodos para cálculo dos valores da fatura. Com isso, 
   viabilizamos uma segunda interface para o sistema, em HTML.
+ 
 * Nos passos seguintes, extraímos uma classe de serviço e um repositório. Com isso, diminuímo o 
 acoplamento entre as funções de cálculo, que passaram a ter um parâmetro a menos. Já a classe
 repositótro encapsulou o acesso a um dos arquivos JSON.
+
 * Por fim, dividimos as funções e classes em quatro arquivos: função de interface com o usuário, 
 classe de serviço (lógica de negócio), repositório (acesso a dados) e funções utilitáris. 
 No arquivo principal, ficou apenas o programa principal, com 11 linhas de código.
+
+É importante ressaltar também que quase todas as mudanças que fizemos foram refatorações. 
+Ou seja, elas foram realizadas para melhorar o entendimento do código e para torná-lo 
+mais flexível a mudanças futuras. O comportamento, isto é, a saída do programa sempre 
+continuou a mesma (com exceção de quando adicionamos, temporariamente, uma função para 
+gerar faturas também em HTML, no passo 7).
