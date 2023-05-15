@@ -36,9 +36,9 @@ que você realizou todos os refactorings solicitados.
 
 ## 1. Função Inicial
 
-A funçaõ que iremos refatorar faz parte de um sistema usado por uma companhia de teatro
+A função que iremos refatorar faz parte de um sistema usado por uma companhia de teatro
 para gerar faturas. Explicando um pouco mais, essa companhia faz apresentações 
-de algumas peças para certos clientes. E ela quer no final do mês gerar uma 
+de algumas peças para clientes. E ela quer no final do mês gerar uma 
 fatura para tais clientes, com o valor do serviço prestado.
 
 Primeiro, estude a versão inicial da função `gerarFaturaStr`, 
@@ -111,7 +111,8 @@ Esse refactoring substitui uma variável local (`temp`) por uma função que
 apenas retorna o seu valor, isto é, uma *query*.
 
 Vamos então substituitir a variável local `peca` usada no corpo principal 
-de `gerarFaturaStr` por uma função que retorna o seu valor.
+de `gerarFaturaStr` por uma função que retorna o nome completo de uma
+peça do repertório da companhia.
 
 Primeiro, vamos criar a função *query*  (`getPeca`) e chamá-la no corpo 
 principal de `gerarFaturaStr`.
@@ -342,10 +343,10 @@ fizemos não foi uma refatoração, mas a adição de uma nova funcionalidade no
 Ou seja, o seu comportamento mudou, pois ele passou a exibir como saída faturas 
 também em HTML.
 
-## 7. Criando uma Classe de Serviço
+## 8. Criando uma Classe de Serviço
 
 Agora, vamos fazer uma mudança muito importante no programa: criar uma
-classe, chamada `ServicoCalculoFatura` para modularizar a implementação das
+classe, chamada `ServicoCalculoFatura`, para modularizar a implementação das
 funções de cálculo. 
 
 Essa classe vai ter o seguinte código:
@@ -413,9 +414,9 @@ Em seguida, dê um **Commit & Push**, com a descrição: "Commit 8 - Classe Serv
 
 ## 9. Criando um Repositório
 
-Agora vamos criar nossa segunda classe, chamada `Repositorio` que vai encapsular o acesso ao
-arquivo JSON com informações sobre as peças do repertório da companhia de teatro. Segue o
-seu código:
+Agora vamos criar nossa segunda classe, chamada `Repositorio`, que vai encapsular 
+o acesso ao arquivo JSON com informações sobre as peças do repertório da companhia 
+de teatro. Segue o seu código:
 
 ```js
 class Repositorio {
@@ -454,7 +455,7 @@ if (this.repo.getPeca(apre).tipo === "comedia")
 3. A função `gerarFaturaStr` também não vai mais precisar do parâmetro `pecas`, 
 que poderá ser removido.
 
-4. Em `gerarFaturaStr`, a chamada a `getPeças` deverá ser feita assim:
+4. Em `gerarFaturaStr`, a chamada a `getPecas` deverá ser feita assim:
 
 ```js
 calc.repo.getPeca(apre).nome
@@ -465,7 +466,7 @@ Veja o código dele a seguir:
 
 ```js
 const faturas = JSON.parse(readFileSync('./faturas.json'));
-calc = new ServicoCalculoFatura(new Repositorio());
+const calc = new ServicoCalculoFatura(new Repositorio());
 const faturaStr = gerarFaturaStr(faturas, calc);
 console.log(faturaStr);
 ```
@@ -477,7 +478,7 @@ Quais foram as vantagens da criação dessas classes?
 
 * Conseguimos separar mais um requisito do sistema: a recuperação de dados de peças, 
 que atualmente estão em um arquivo JSON. Se amanhã quisermos armazenar esses dados 
-em um banco de dados relacional, precisaremos apenas de criar um novo repositório, 
+em um banco de dados, precisaremos apenas de criar um novo repositório, 
 por exemplo, `RepositorioBD`.
 
 * O repositório agora é um atributo da classe `ServicoCalculoFatura. Com isso,
@@ -510,14 +511,14 @@ module.exports = class Repositorio {
 No arquivo principal, importe essa classe:
 
 ```js
-var Repositorio = require("./repositorio.js")
+var Repositorio = require("./repositorio.js");
 ```
 
 Para garantir que está tudo funcionando, rode o código. 
 
 Agora crie mais três arquivos:
 
-* `util.js`: e mova para ele a função `formatarMoeda`..
+* `util.js`: e mova para ele a função `formatarMoeda`.
 * `servico.js`: e mova para ele a classe `ServicoCalculoFatura`.
 * `apresentacao.js`: e mova para ela a função `gerarFaturaStr`.
 
@@ -526,8 +527,8 @@ Feito isso, o arquivo principal (`index.js`) deverá ficar assim:
 ```js
 const { readFileSync } = require('fs');
 
-var Repositorio = require("./repositorio.js")
-var ServicoCalculoFatura = require("./servico.js") 
+var Repositorio = require("./repositorio.js");
+var ServicoCalculoFatura = require("./servico.js") ;
 var gerarFaturaStr = require("./apresentacao.js");
 
 // main
@@ -561,10 +562,10 @@ E, por meio de sucessivas refatorações, extraímos vários interesses dessa fu
  
 * Nos passos seguintes, extraímos uma classe de serviço e um repositório. Com isso, diminuímo o 
 acoplamento entre as funções de cálculo, que passaram a ter um parâmetro a menos. Já a classe
-repositótro encapsulou o acesso a um dos arquivos JSON.
+repositório encapsulou o acesso a um dos arquivos JSON.
 
 * Por fim, dividimos as funções e classes em quatro arquivos: função de interface com o usuário, 
-classe de serviço (lógica de negócio), repositório (acesso a dados) e funções utilitáris. 
+classe de serviço (lógica de negócio), repositório (acesso a dados) e funções utilitárias. 
 No arquivo principal, ficou apenas o programa principal, com 11 linhas de código.
 
 **Vantagens da versão refatorada:**
