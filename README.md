@@ -485,7 +485,7 @@ por exemplo, `RepositorioBD`.
 conseguimos tornar a assinatura dos métodos de cálculo mais simples, isto é,
 com um parâmetros a menos.
 
-### 10. Particionamento em Arquivos 
+## 10. Particionamento em Arquivos 
 
 Vamos agora criar alguns arquivos e mover as classes e funções atuais para
 eles.
