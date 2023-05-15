@@ -27,7 +27,7 @@ Instruções:
 
 * Siga o roteiro, refactoring a refactoring.
 
-* Após cada etapa, dê um **COMMIT & PUSH**, adicionado uma descrição (mensagem) no commit 
+* Após cada etapa, dê um **COMMIT & PUSH**, adicionando uma descrição (mensagem) no commit 
 conforme as instruções do roteiro. Esses commits serão usados na correção, para garantir 
 que você realizou todos os refactorings solicitados. 
 
@@ -110,7 +110,7 @@ Em seguida, dê um **Commit & Push**, com a descrição: "Commit 2 - Extração 
 Esse refactoring substitui uma variável local (`temp`) por uma função que 
 apenas retorna o seu valor, isto é, uma *query*.
 
-Vamos então substituitir a variável local `peca` usada no corpo principal 
+Vamos então substituir a variável local `peca` usada no corpo principal 
 de `gerarFaturaStr` por uma função que retorna o nome completo de uma
 peça do repertório da companhia.
 
@@ -338,7 +338,7 @@ programa deverá exibir duas faturas: uma em string e outra em HTML.
 
 Em seguida, dê um **Commit & Push**, com a descrição: "Commit 7 - Fatura em HTML".
 
-Uma última reflexão importante, antes de conluir: tecnicamente, neste passo, o que 
+Uma última reflexão importante, antes de concluir: tecnicamente, neste passo, o que 
 fizemos não foi uma refatoração, mas a adição de uma nova funcionalidade no programa.
 Ou seja, o seu comportamento mudou, pois ele passou a exibir como saída faturas 
 também em HTML.
@@ -404,7 +404,7 @@ o parâmetro `calc` como alvo. Veja um exemplo:
 calc.calcularTotalApresentacao(pecas, apre)
 ```
 
-5. Para evitar que o programe fique com duas saídas, comente o corpo da função
+5. Para evitar que o programa fique com duas saídas, comente o corpo da função
 `gerarFaturaHTML` e sua respectiva chamada. Ou seja, vamos voltar a ter apenas 
 uma saída, apenas por questões de simplicidade.
 
@@ -560,7 +560,7 @@ E, por meio de sucessivas refatorações, extraímos vários interesses dessa fu
 * Depois, criamos uma classe com métodos para cálculo dos valores da fatura. Com isso, 
   viabilizamos uma segunda interface para o sistema, em HTML.
  
-* Nos passos seguintes, extraímos uma classe de serviço e um repositório. Com isso, diminuímo o 
+* Nos passos seguintes, extraímos uma classe de serviço e um repositório. Com isso, diminuímos o 
 acoplamento entre as funções de cálculo, que passaram a ter um parâmetro a menos. Já a classe
 repositório encapsulou o acesso a um dos arquivos JSON.
 
@@ -573,4 +573,6 @@ No arquivo principal, ficou apenas o programa principal, com 11 linhas de códig
 * Código mais simples de evoluir, isto é, implementar novas funcionalidades
 
 **Desvantagens da versão refatorada:**
-* O código monolítico tem menos chamadas de função, logo ele possui um melhor desempenho. Por outro, esse ganho somente será perceptível e relevante caso o código execute em um hardware muito limitado e caso desempenho seja um requisito muito importante e crítico.
+* O código monolítico tem menos chamadas de função, logo ele possui um melhor desempenho. Por outro, 
+esse ganho somente será perceptível e relevante caso o código seja executado em um hardware 
+muito limitado e caso desempenho seja um requisito muito importante e crítico.
