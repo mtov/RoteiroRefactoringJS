@@ -46,6 +46,9 @@ disponível neste [link](https://github.com/mtov/RoteiroRefactoringJS/blob/main/
 
 **Importante:**
 
+* Veja que temos uma função monolítica que cuida de dois interesses: cálculo dos valores
+que vão constar da fatura e formatação de uma string com o texto da fatura.
+
 * No código, usamos o termo `peca` (sem cedilha) para denotar uma peça apresentada
   pela companhia. Por isso, existem funções chamadas, por exemplo, `getPeca`. 
 
