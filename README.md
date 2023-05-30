@@ -316,7 +316,9 @@ HTML, tal como mostrado a seguir:
 
 Especificamente, você deverá:
 
-* Implementar uma nova função `gerarFaturaHTML` que retorna uma fatura como essa acima.
+* Implementar uma nova função `gerarFaturaHTML` que retorna uma fatura como essa acima. 
+  Ou seja, essa função vai retornar uma grande string com as tags HTML da fatura, exatamente 
+  como mostrado acima.
 * Acrescentar uma chamada para essa função no programa principal.
 
 Ou seja, teremos agora duas funções para geração de faturas:
