@@ -144,7 +144,7 @@ Feito isso, rode o código para garantir que está tudo funcionando.
 **Qual o benefício desse refactoring?**
 
 Após esse refactoring, nós podemos prosseguir e remover também o parâmetro `peca` de 
-`calcularTotalApresentcao` e substituir os seus usos por chamadas a `getPeca`. 
+`calcularTotalApresentacao` e substituir os seus usos por chamadas a `getPeca`. 
 Isso torna a função mais simples, pois ela terá apenas um parâmetro, em vez de 
 dois como antes.
 
