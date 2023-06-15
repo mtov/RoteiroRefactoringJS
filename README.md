@@ -74,8 +74,6 @@ Valor total: R$ 1.730,00
 Créditos acumulados: 47 
  ```
 
-Em seguida, dê um **Commit & Push**, com a descrição: "Commit 1 - Versão inicial".
-
 ## 2. Extração de Função
 
 Agora, você deve extrair uma função com o código do `switch` interno a `gerarFaturaStr`. 
@@ -106,7 +104,7 @@ mais externa.
 
 Execute seu código, para garantir que está tudo funcionando corretamente.
 
-Em seguida, dê um **Commit & Push**, com a descrição: "Commit 2 - Extração de Função".
+Em seguida, dê um **Commit & Push**, com a descrição: "Commit 1 - Extração de Função".
 
 ## 3. Replace Temp with Query
 
@@ -158,7 +156,7 @@ Especificamente, você deve:
 - Atualizar a chamada de `calcularTotalApresentacao`, no corpo da função principal, 
   para agora usar apenas um parâmetro de chamada.
 
-Em seguida, dê um **Commit & Push**, com a descrição: "Commit 3 - Replace Temp with Query
+Em seguida, dê um **Commit & Push**, com a descrição: "Commit 2 - Replace Temp with Query
 ".
 
 ## 4. Mais Extração de Funções
@@ -211,7 +209,7 @@ chame a nova função (`formatarMoeda`).
 
 Para garantir que está tudo correto, rode o código.
 
-Em seguida, dê um **Commit & Push**, com a descrição: "Commit 4 - Mais Extract Functions".
+Em seguida, dê um **Commit & Push**, com a descrição: "Commit 3 - Mais Extract Functions".
 
 ## 5. Separando Apresentação dos Cálculos
 
@@ -249,7 +247,7 @@ para cálculo dos totais da fatura, especificamente:
 
 Para garantir que está tudo funcionando, rode o código.
 
-Em seguida, dê um **Commit & Push**, com a descrição: "Commit 5 - Separando Apresentação dos Cálculos".
+Em seguida, dê um **Commit & Push**, com a descrição: "Commit 4 - Separando Apresentação dos Cálculos".
 
 ## 6. Move Function
 
@@ -294,7 +292,7 @@ function gerarFaturaStr(fatura, pecas) {
 
 Para garantir que está tudo funcionando, rode o código.
 
-Em seguida, dê um **Commit & Push**, com a descrição: "Commit 6 - Move Function".
+Em seguida, dê um **Commit & Push**, com a descrição: "Commit 5 - Move Function".
 
 ## 7. Fatura em HTML
 
@@ -341,7 +339,7 @@ não precisamos modificar nenhuma lógica de negócio.
 Para garantir que está tudo funcionando, rode o código. Veja que agora o 
 programa deverá exibir duas faturas: uma em string e outra em HTML.
 
-Em seguida, dê um **Commit & Push**, com a descrição: "Commit 7 - Fatura em HTML".
+Em seguida, dê um **Commit & Push**, com a descrição: "Commit 6 - Fatura em HTML".
 
 Uma última reflexão importante, antes de concluir: tecnicamente, neste passo, o que 
 fizemos não foi uma refatoração, mas a adição de uma nova funcionalidade no programa.
@@ -415,7 +413,7 @@ uma saída, apenas por questões de simplicidade.
 
 Para garantir que está tudo funcionando, rode o código. 
 
-Em seguida, dê um **Commit & Push**, com a descrição: "Commit 8 - Classe ServicoCalculoFatura".
+Em seguida, dê um **Commit & Push**, com a descrição: "Commit 7 - Classe ServicoCalculoFatura".
 
 ## 9. Criando um Repositório
 
@@ -477,7 +475,7 @@ console.log(faturaStr);
 ```
 Para garantir que está tudo funcionando, rode o código. 
 
-Em seguida, dê um **Commit & Push**, com a descrição: "Commit 9 - Classe Repositorio".
+Em seguida, dê um **Commit & Push**, com a descrição: "Commit 8 - Classe Repositorio".
 
 Quais foram as vantagens da criação dessas classes? 
 
@@ -543,7 +541,7 @@ const faturaStr = gerarFaturaStr(faturas, calc);
 console.log(faturaStr);
 ```
 
-Em seguida, dê um **Commit & Push**, com a descrição: "Commit 10 - Criando Arquivos".
+Em seguida, dê um **Commit & Push**, com a descrição: "Commit 9 - Criando Arquivos".
 
 Antes de concluirmos, veja a arquitetura final do sistema:
 
