@@ -4,7 +4,7 @@ Comandos do git <br>
 git status <br>
 git add . <br>
 git commit -a -m "mensagem" <br>
-git pull origin main <br>
+git push origin main <br>
 
 **Prof. Marco Tulio Valente**
 
