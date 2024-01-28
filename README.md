@@ -1,11 +1,5 @@
 # Roteiro de Refactoring (versão JavaScript)
 
-Comandos do git <br>
-git status <br>
-git add . <br>
-git commit -a -m "mensagem" <br>
-git push origin main <br>
-
 **Prof. Marco Tulio Valente**
 
 Neste roteiro, você vai colocar em prática os conceitos de refactoring aprendidos na
