@@ -1,8 +1,6 @@
 # Roteiro de Refactoring (versão JavaScript)
 
-Comentando
-
-Outro comentário por Eliésio <br>
+Comandos do git <br>
 git status <br>
 git add . <br>
 git commit -a -m "mensagem" <br>
