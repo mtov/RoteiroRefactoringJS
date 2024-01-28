@@ -1,7 +1,11 @@
 # Roteiro de Refactoring (versão JavaScript)
 
 Comentando
-Outro comentário
+
+Outro comentário por Eliésio <br>
+git status <br>
+git add . <br>
+
 **Prof. Marco Tulio Valente**
 
 Neste roteiro, você vai colocar em prática os conceitos de refactoring aprendidos na
