@@ -1,5 +1,5 @@
 # Roteiro de Refactoring (versão JavaScript)
-
+Comentando 
 **Prof. Marco Tulio Valente**
 
 Neste roteiro, você vai colocar em prática os conceitos de refactoring aprendidos na 
