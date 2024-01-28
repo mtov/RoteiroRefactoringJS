@@ -5,6 +5,7 @@ Comentando
 Outro comentário por Eliésio <br>
 git status <br>
 git add . <br>
+git commit -a -m "mensagem" <br>
 
 **Prof. Marco Tulio Valente**
 
