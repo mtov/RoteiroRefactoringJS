@@ -1,8 +1,0 @@
-COMANDOS GIT PARA SUBIR ALTERAÇÕES
-git status
-
-git add . 
-
-git commit -a -m "mensagem" 
-
-git push origin main 
